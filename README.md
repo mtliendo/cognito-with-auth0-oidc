@@ -28,6 +28,36 @@ const auth0Stack = new Auth0Stack(app, 'Auth0AppsyncCdkStack', {
 
 TBD
 
+## Frontend configuration
+
+TBD
+
+Note that when the backend is deployed, it is configured so that the needed values for the frontend out printed out in the terminal.
+
+```js
+Amplify.configure({
+	Auth: {
+		region: 'us-east-1',
+		userPoolId: 'us-east-1_sample', // obtained from backend output
+		userPoolWebClientId: 'rand0m_str1ng', // obtained from backend output
+	},
+	aws_project_region: 'us-east-1',
+	oauth: {
+		domain: 'auth0-cdk.auth.us-east-1.amazoncognito.com', // note this doesn't contain the protocol.
+		scope: [
+			'phone',
+			'email',
+			'profile',
+			'openid',
+			'aws.cognito.signin.user.admin',
+		],
+		redirectSignIn: 'http://localhost:3000/',
+		redirectSignOut: 'http://localhost:3000/',
+		responseType: 'code', // or 'token', note that REFRESH token will only be generated when the responseType is code
+	},
+})
+```
+
 ## Useful commands
 
 - `npm run build` compile typescript to js
